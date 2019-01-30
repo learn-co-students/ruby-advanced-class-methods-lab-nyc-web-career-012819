@@ -40,14 +40,14 @@ class Song
   end
 
   def self.new_from_filename(filename)
-  	song = self.new_by_name(filename_info(filename)[:song_name])
+  	song = self.new_by_name( filename_info(filename)[:song_name] )
   	song.artist_name = filename_info(filename)[:artist]
   	song
   end
 
   def self.create_from_filename(filename)
-  	song = self.create_by_name(filename_info(filename)[:song_name])
-  	song.artist_name = filename_info(filename)[:artist]
+  	song = self.create_by_name(song_name_in(filename))
+  	song.artist_name = artist_in(filename)
   	song
   end
 
@@ -66,13 +66,13 @@ class Song
   # Start of private methods
   private
 
-  # Helper method to clean up filename
-  # Return hash with artist and song_name
-  def self.filename_info(filename)
-  	info = {
-  		artist: filename.split(" - ")[0],
-  		song_name: filename.split(" - ")[1][0...-4]
-  	}
+  # Helper methods to grab clean strings from filename
+  def self.artist_in(filename)
+  	filename.split(" - ")[0]
+  end
+
+  def self.song_name_in(filename)
+  	filename.split(" - ")[1][0...-4]
   end
 
 end
