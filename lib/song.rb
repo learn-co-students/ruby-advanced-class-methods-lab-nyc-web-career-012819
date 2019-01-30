@@ -40,9 +40,6 @@ class Song
   end
 
   def self.new_from_filename(filename)
-  	# artist = filename.split(" - ")[0]
-  	# song_name = filename.split(" - ")[1][0...-4]
-
   	song = self.new_by_name(filename_info(filename)[:song_name])
   	song.artist_name = filename_info(filename)[:artist]
   	song
@@ -52,13 +49,6 @@ class Song
   	song = self.create_by_name(filename_info(filename)[:song_name])
   	song.artist_name = filename_info(filename)[:artist]
   	song
-  end
-
-  def self.filename_info(filename)
-  	info = {
-  		artist: filename.split(" - ")[0],
-  		song_name: filename.split(" - ")[1][0...-4]
-  	}
   end
 
   def self.destroy_all
@@ -71,6 +61,18 @@ class Song
 
   def save
     self.class.all << self
+  end
+
+  # Start of private methods
+  private
+
+  # Helper method to clean up filename
+  # Return hash with artist and song_name
+  def self.filename_info(filename)
+  	info = {
+  		artist: filename.split(" - ")[0],
+  		song_name: filename.split(" - ")[1][0...-4]
+  	}
   end
 
 end
